@@ -1,6 +1,7 @@
 class Sorter {
   constructor() {
     this.data = [];
+    this.compareFunction;
   }
 
   add(element) {
@@ -27,9 +28,13 @@ class Sorter {
       tmp.push(this.data[indices[i]]);
     }
     
-    tmp.sort(function(a, b) {
-      return a - b
-    });  
+    if(!this.compareFunction) {
+      tmp.sort(function(a, b) {
+        return a - b
+      });  
+    } else {
+      tmp.sort(this.compareFunction);
+    } 
    
     for(var k = 0; k < indices.length; k++) {
       this.data[indices[k]] = tmp[k];
@@ -39,7 +44,7 @@ class Sorter {
   }
 
   setComparator(compareFunction) {
-
+    this.compareFunction = compareFunction;
   }
 }
 
